@@ -5,14 +5,14 @@ Library Project
 
 המערכת מאפשרת לנהל את מאגרי הספרים ולפקח על שאילת והחזרת הספרים למנויים
 
-<!-- כלים -->
+__כלים__
 המערכת נכתבה בפייתון, וכוללת שימוש ב
 FastAPI
 Docker
 mysql.connector
 
 
-<!-- מבנה תיקיות -->
+__מבנה תיקיות__
 library-api/
 │
 │
@@ -32,14 +32,14 @@ library-api/
 ├── requirements.txt
 └── .gitignore
 
-<!-- טבלאות  -->
+__טבלאות__
 books:
 id, title, author, genre, is_available, id_member_by_borrowed 
 
 members:
 id, name, email, is_active, total_borrows
 
-<!-- הוראות הרצה -->
+__הוראות הרצה__
 git clone https://github.com/elchanan003/library_project.git
 
 docker run --name my-sql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql
