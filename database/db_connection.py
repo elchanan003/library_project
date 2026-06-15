@@ -57,8 +57,9 @@ class DB:
                 
 
         
-
-
+db = DB('localhost', 'root', 'root', 'library_db')
+# db.create_database()
+# db.create_tables()
 
         
 

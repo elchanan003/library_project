@@ -1,5 +1,5 @@
 from database.db_connection import DB, db
-from routes.schemas import Data
+from routes.schemas import Book
 
 class BookDB:
     def __init__(self, db:DB):
