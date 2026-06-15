@@ -1,38 +1,21 @@
 import mysql.connector
 
 
-class DBManager:
+class DB:
     def __init__(self, host, user, password, database):
-        self.connection = None
-        self.cursor = None
-
         self.host = host
         self.user = user
         self.password = password
         self.database = database
 
     def connect(self):
-        self.connection = mysql.connector.connect(
+        return mysql.connector.connect(
             host = self.host,
             user = self.user,
             password = self.password,
             database = self.database
         )
-
-        self.cursor = self.connection.cursor()
-
-    def disconnect(self):
-        if self.cursor is not None: 
-            self.cursor.close()
-            self.cursor = None
-        if self.connection is not None:
-            self.connection.close()
-            self.connection = None
-    
-    def commit(self):
-        self.connection.commit()
-
-        
+                
     def create_database(self):
         conn = mysql.connector.connect(
             host=self.host, 
@@ -40,12 +23,43 @@ class DBManager:
             password=self.password
         )
 
-        cur = conn.cursor()
-
-        cur.execute(f'CREATE DATABASE IF NOT EXISTS {self.database}')
+        with conn.cursor() as cur:
+            cur.execute(f'CREATE DATABASE IF NOT EXISTS {self.database}')
         
-        cur.close()
         conn.close()
+        
+       
+    def create_tables(self):
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+
+                cur.execute("""
+                CREATE TABLE IF NOT EXISTS books(
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                title VARCHAR(50) NOT NULL,
+                author VARCHAR(50) NOT NULL,
+                genre ENUM('Fiction', 'Non-Fiction', 'Science', 'History', 'Other') NOT NULL,
+                is_available BOOL NOT NULL,
+                borrowed_by_member_id INT 
+                )
+                """)
+
+                cur.execute("""
+                CREATE TABLE IF NOT EXISTS members(
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(50) NOT NULL,
+                email VARCHAR(255) UNIQUE NOT NULL,
+                is_active BOOL NOT NULL,
+                total_borrows INT NOT NULL
+                )
+                """)
+
+                
+
+        
+
+
+
         
 
 
