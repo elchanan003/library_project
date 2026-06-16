@@ -122,4 +122,5 @@ class MemberDB:
                 data = cur.fetchone()
                 return data
 
-                
+
+member_db = MemberDB(db)

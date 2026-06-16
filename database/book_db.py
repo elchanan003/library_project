@@ -5,7 +5,7 @@ class BookDB:
     def __init__(self, db:DB):
         self.db = db
 
-    def create_book(self, data:Data):
+    def create_book(self, data:Book):
         with self.db.connect() as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -44,7 +44,7 @@ class BookDB:
                 data = cur.fetchone()
                 return data if data else None
 
-    def update_book(self, id, data:Data):
+    def update_book(self, id, data:Book):
         if self.get_book_by_id(id):
             with self.db.connect() as conn:
                 with conn.cursor() as cur:
@@ -136,6 +136,6 @@ class BookDB:
                 return data[0]
         
 
-
+book_db = BookDB(db) 
       
 
